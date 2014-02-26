@@ -59,6 +59,10 @@ class ControllerBase
     session.store_session(@res)
   end
 
+  def fail
+    render_content(params.to_s, "text/json")
+  end
+
   # method exposing a `Session` object
   def session
     @session ||= Session.new(@req)

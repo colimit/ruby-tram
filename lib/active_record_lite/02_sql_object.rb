@@ -20,7 +20,7 @@ class SQLObject < MassObject
         .tap { |cols| hash_attr_accessor(*cols)  }
     end
   end
-  
+
   #makes accessor methods for fields in the attributes hash
   def self.hash_attr_accessor(*names)
     names.each do |meth_name|
@@ -31,10 +31,10 @@ class SQLObject < MassObject
         attributes[meth_name.to_sym] = other
       end
     end
-  end 
+  end
 
   def self.table_name=(table_name)
-    @table_name = table_name 
+    @table_name = table_name
   end
 
   def self.table_name
@@ -90,7 +90,7 @@ class SQLObject < MassObject
   end
 
   def save
-    self.id ? update : insert  
+    self.id ? update : insert
   end
 
   def update
@@ -109,5 +109,5 @@ class SQLObject < MassObject
   def attribute_values
     self.class.columns.map { |col_name| send(col_name) }
   end
-  
+
 end

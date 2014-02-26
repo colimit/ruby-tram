@@ -21,12 +21,17 @@ class StatusesController < ControllerBase
   end
 
   def create
-    @status = params
-    render "show"
+
+
+   @status = Status.new(params["status"])
+   @status.save
+   # render_content(@status.attributes.to_json, "text/json")   #
+    #
+   redirect_to "http://localhost:8080/statuses/#{@status.id}"
   end
 
   def show
-
+    @status = Status.find(params["id"])
   end
 end
 
