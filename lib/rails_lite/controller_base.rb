@@ -9,15 +9,14 @@ $PROJECT_ROOT = File.join(File.dirname(__FILE__), '../../')
 class ControllerBase
   attr_reader :params, :req, :res
 
-  # setup the controller
   def initialize(req, res, route_params = {})
     @req, @res = req, res
     @params = Params.new(req, route_params)
   end
 
-  # populate the response with content
-  # set the responses content type to the given type
-  # later raise an error if the developer tries to double render
+  # populates the response with content
+  # sets the responses content type to the given type
+  # raises an error if the developer tries to double render
   def render_content(content, type)
     handle_already_rendered
     res.body = content
@@ -30,13 +29,11 @@ class ControllerBase
     @already_rendered = true
   end
 
-
-  # helper method to alias @already_rendered
   def already_rendered?
     @already_rendered
   end
 
-  # set the response status code and header
+  # sets the response status code and header
   def redirect_to(url)
     handle_already_rendered
     res["Location"] = url
@@ -44,15 +41,10 @@ class ControllerBase
     session.store_session(@res)
   end
 
-  # use ERB and binding to evaluate templates
-  # pass the rendered html to render_content
+  # uses ERB and binding to evaluate templates
   def render(template_name)
     handle_already_rendered
-    path = File.join("views",self.class.name.underscore, "#{template_name}.html.erb")
-    # path = File.expand_path(
-      # "./views/#{self.class.name.underscore}/#{template_name}.html.erb",
-      # $PROJECT_ROOT
-      # )
+    path = File.join("app/views", self.class.name.underscore, "#{template_name}.html.erb")
     erb = ERB.new(File.read(path))
     res.content_type = "text/html"
     res.body = erb.result(binding)
@@ -63,12 +55,11 @@ class ControllerBase
     render_content(params.to_s, "text/json")
   end
 
-  # method exposing a `Session` object
   def session
     @session ||= Session.new(@req)
   end
 
-  # use this with the router to call action_name (:index, :show, :create...)
+  # does an action like :index or :show
   def invoke_action(name)
     self.send(name)
     render(name) unless already_rendered?

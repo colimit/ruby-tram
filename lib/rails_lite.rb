@@ -1,4 +1,5 @@
 require_relative 'rails_lite/controller_base'
 require_relative 'rails_lite/router'
-require_relative 'active_record_lite/05_associatable2'
-require_relative '../models/status'
+require_relative 'active_record_lite/associatable'
+require_relative '../app/models/status'
+require_relative '../app/controllers/statuses_controller'
