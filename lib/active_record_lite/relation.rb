@@ -38,7 +38,6 @@ class Relation
     self
   end 
   
-  #asdf
   
   def each(&block)
     force if @records.nil?
