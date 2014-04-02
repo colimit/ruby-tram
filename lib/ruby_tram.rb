@@ -1,0 +1,5 @@
+require_relative 'ruby_tram/controller_base'
+require_relative 'ruby_tram/router'
+require_relative 'active_record_lite/associatable'
+require_relative '../app/models/status'
+require_relative '../app/controllers/statuses_controller'

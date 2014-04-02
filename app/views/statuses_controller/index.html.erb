@@ -1,0 +1,7 @@
+<h1> Your Tweets!</h1>
+<ul>
+<% @statuses.each do |status| %>
+<li><a href="statuses/<%= status.attributes[:id]%>"><%= status.attributes[:body] %> </a>
+<% end %>
+</ul>
+<p> <a href="statuses/new"> Tweet! </a></p>
