@@ -46,6 +46,7 @@ class Relation
   end
     
   def method_missing(meth, *args, &block)
+    # if it's an array method, calls force then send
     if Array.new.methods.include?(meth)
       force if @records.nil?
       @records.send(meth, *args, &block)
@@ -53,7 +54,7 @@ class Relation
       super
     end  
   end
-  # if it's an array method, calls force then send
+ 
   
   
 end
